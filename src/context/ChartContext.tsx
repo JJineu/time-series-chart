@@ -45,7 +45,7 @@ export function ChartProvider({
   );
 }
 
-const parsingData = (data) => {
+const parsingData = (data: { response: any }) => {
   const jsonData = data.response;
   const parsedData = Object.keys(jsonData).map((key) => ({
     time: key,
