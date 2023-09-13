@@ -14,7 +14,7 @@
 
 ※ 개발 과정은 Notion으로 정리했습니다.
 
-- [Notion](https://www.notion.so/ongoingjin/week-03-like-react-query-7ace65753c054860b957115aff724363)
+- [Notion](https://ongoingjin.notion.site/week-04-stand-alone-08b970d640af4fa1aef2a6080dbe1bcc?pvs=4)
 
 <br>
 
