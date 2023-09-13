@@ -26,5 +26,6 @@ module.exports = {
     'no-var': 'error', // var 키워드 사용 금지
     'require-await': 'error', // async 함수 내부에 await 키워드가 없으면 오류 발생
     eqeqeq: 'warn', // ==, != 대신에 ===, !== 사용
+    '@typescript-eslint/no-explicit-any': 'off',
   },
 };
