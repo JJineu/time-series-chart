@@ -33,14 +33,8 @@ export function ChartProvider({
 
   useEffect(() => {
     chartService.get().then((data) => {
-      const jsonData = data.response;
-      const dataArray = Object.keys(jsonData).map((key) => ({
-        time: key,
-        id: jsonData[key].id,
-        value_area: jsonData[key].value_area,
-        value_bar: jsonData[key].value_bar,
-      }));
-      setData(dataArray);
+      const parsedData = parsingData(data);
+      setData(parsedData);
     });
   }, [chartService, setData]);
 
@@ -50,3 +44,14 @@ export function ChartProvider({
     </ChartContext.Provider>
   );
 }
+
+const parsingData = (data) => {
+  const jsonData = data.response;
+  const parsedData = Object.keys(jsonData).map((key) => ({
+    time: key,
+    id: jsonData[key].id,
+    value_area: jsonData[key].value_area,
+    value_bar: jsonData[key].value_bar,
+  }));
+  return parsedData;
+};
