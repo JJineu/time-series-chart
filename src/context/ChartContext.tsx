@@ -4,7 +4,9 @@ import ChartService from '../services/ChartService';
 import { Idata } from '../types/data';
 
 interface IchartContext {
-  chartData: Idata[];
+  data: Idata[];
+  filterID: string | null;
+  setFilterID: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const ChartContext = createContext<IchartContext | undefined>(undefined);
@@ -26,13 +28,25 @@ export function ChartProvider({
   children: React.ReactNode;
   chartService: ChartService;
 }) {
-  const [chartData, setChartdata] = useState<Idata[]>([]);
+  const [data, setData] = useState<Idata[]>([]);
+  const [filterID, setFilterID] = useState<string | null>(null);
 
   useEffect(() => {
     chartService.get().then((data) => {
-      setChartdata(data.response);
+      const jsonData = data.response;
+      const dataArray = Object.keys(jsonData).map((key) => ({
+        time: key,
+        id: jsonData[key].id,
+        value_area: jsonData[key].value_area,
+        value_bar: jsonData[key].value_bar,
+      }));
+      setData(dataArray);
     });
-  }, [chartService, setChartdata]);
+  }, [chartService, setData]);
 
-  return <ChartContext.Provider value={{ chartData }}>{children}</ChartContext.Provider>;
+  return (
+    <ChartContext.Provider value={{ data, filterID, setFilterID }}>
+      {children}
+    </ChartContext.Provider>
+  );
 }
