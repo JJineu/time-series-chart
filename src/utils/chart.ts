@@ -1,4 +1,3 @@
-import { Chart } from 'chart.js';
 import { COLORS } from '../constants/color';
 
 export const initialChart = {
@@ -29,7 +28,7 @@ export const initialChart = {
   ],
 };
 
-export const chartOptions = (changeFilterID) => ({
+export const chartOptions: any = (changeFilterID: (e: any) => void) => ({
   grouped: false,
   interaction: {
     mode: 'index' as const,
@@ -43,7 +42,7 @@ export const chartOptions = (changeFilterID) => ({
       bodySpacing: 5,
       usePointStyle: true,
       callbacks: {
-        title: (context) => {
+        title: (context: { raw: { id: any } }[]) => {
           const title = context[0].raw.id;
           return title;
         },
@@ -58,7 +57,7 @@ export const chartOptions = (changeFilterID) => ({
       grid: {
         display: false,
       },
-      afterDataLimits: (scale) => {
+      afterDataLimits: (scale: { max: number }) => {
         scale.max = scale.max * 2;
       },
       title: {
@@ -91,9 +90,9 @@ export const chartOptions = (changeFilterID) => ({
       },
     },
     times: {
-      afterTickToLabelConversion: function (scaleInstance: Chart) {
+      afterTickToLabelConversion: function (scaleInstance: any) {
         const ticks = scaleInstance.ticks;
-        const newTicks = ticks.filter((tick) => {
+        const newTicks = ticks.filter((tick: { label: string | number | Date }) => {
           const seconds = new Date(tick.label).getSeconds();
           return seconds === 0 || seconds === 30;
         });

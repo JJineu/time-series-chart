@@ -11,9 +11,16 @@ registChart();
 
 const Charting = () => {
   const { data: chartData, setFilterID, filterID } = useChart();
-  const [filterData, setFilterData] = useState(initialChart);
+  const [filterData, setFilterData] = useState<
+    | typeof initialChart
+    | {
+        datasets: any[];
+      }
+  >(initialChart);
 
-  const changeFilterID = (e) => {
+  const changeFilterID = (e: {
+    chart: { tooltip: { title: React.SetStateAction<string | null>[] } };
+  }) => {
     setFilterID(e.chart.tooltip.title[0]);
   };
 
@@ -45,6 +52,7 @@ const Charting = () => {
       options={chartOptions(changeFilterID)}
       data={filterData}
       style={{ width: '90vw', height: '90vw' }}
+      type={'line'}
     />
   );
 };
